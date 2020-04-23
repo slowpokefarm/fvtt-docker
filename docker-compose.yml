@@ -19,6 +19,7 @@ services:
         - ./letsencrypt/data:/data/letsencrypt
         - ./data:/var/foundry/data
         - ./log:/var/log
-      expose:
-        - "30000"
+      ports:
+        - "80"
+        - "443"
       restart: always
