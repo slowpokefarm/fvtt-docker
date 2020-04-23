@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+   fvtt:
+      build:
+        context: ./image
+        dockerfile: ./Dockerfile
+        args:
+            UID: 1026
+            GUID: 65534
+      image: fvtt:latest            
+      container_name: foundryvtt
+      volumes:
+        - ./nginx:/etc/nginx/sites-enabled
+        - ./cron.d:/etc/cron.d
+        - ./supervisor:/etc/supervisor/conf.d
+        - ./letsencrypt/etc:/etc/letsencrypt
+        - ./letsencrypt/var/lib:/var/lib/letsencrypt
+        - ./letsencrypt/data:/data/letsencrypt
+        - ./data:/var/foundry/data
+      ports:
+        - "30000:30000"
+      restart: always
