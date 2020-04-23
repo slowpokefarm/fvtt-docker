@@ -18,6 +18,7 @@ services:
         - ./letsencrypt/var/lib:/var/lib/letsencrypt
         - ./letsencrypt/data:/data/letsencrypt
         - ./data:/var/foundry/data
+        - ./log:/var/log
       expose:
         - "30000"
       restart: always
