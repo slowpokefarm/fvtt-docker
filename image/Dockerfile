@@ -50,7 +50,6 @@ RUN chown -R root:root /etc/cron.d && \
     chmod -R 0644 /etc/cron.d
 
 COPY service.sh /
-COPY expires.conf /etc/nginx
 
 RUN chmod 700 /service.sh
 
