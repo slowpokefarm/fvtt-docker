@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 MAINTAINER Stanislav Slow <stanislav.rimsha@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -14,18 +14,17 @@ ENV GUID=65534
 # Set the foundry install home
 ENV FOUNDRY_HOME=/var/foundry/fvtt
 
-RUN echo "UID ${UID}"
+# RUN echo "UID ${UID}"
 # add a foundry group with a guid listed above
 
-RUN echo "UID: ${UID} GUID: $GUID"
-# create the foundry use
-RUN adduser -u $UID -h "$FOUNDRY_HOME" -D foundry
+# RUN echo "UID: ${UID} GUID: $GUID"
+# create the foundry user
+# RUN adduser -u $UID -h "$FOUNDRY_HOME" -D foundry
 
 # installing unzip and bash shell
 RUN apt-get update && \
     apt-get install software-properties-common -y && \
     add-apt-repository universe && \
-    add-apt-repository ppa:certbot/certbot && \
     apt-get install -y --no-install-recommends apt-utils && \
     apt-get update  && \
     apt-get install -y \
@@ -40,7 +39,7 @@ RUN apt-get update && \
     supervisor \
     htop \
     language-pack-ru \
-    python-certbot-nginx \
+    certbot \
     nginx && \
     apt-get autoremove -y && \
     apt-get clean && \
@@ -57,7 +56,7 @@ RUN chmod 700 /service.sh
 WORKDIR "${FOUNDRY_HOME}"
 
 # curl nodejs nginx unzip
-RUN curl -sL https://deb.nodesource.com/setup_13.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get -y install nodejs
 
 # copy found
